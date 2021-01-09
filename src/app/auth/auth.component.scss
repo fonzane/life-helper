@@ -1,0 +1,12 @@
+.auth-form {
+    margin: auto;
+    max-width: 45rem;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+.auth-btn {
+    flex-grow: 1;
+}

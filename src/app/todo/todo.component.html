@@ -1,0 +1,30 @@
+<div class="container row">
+    <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-flex flex-column">
+        <h3 class="p-3">Neue Aufgabe erstellen</h3>
+        <mat-form-field class="p-2" appearance="outline">
+            <mat-label>Neue Aufgabe</mat-label>
+            <input matInput type="text" placeholder="Neue Aufgabe" #taskName>
+        </mat-form-field>
+        <mat-form-field class="p-2" appearance="outline">
+            <mat-label>Kategorie</mat-label>
+            <input type="text" matInput placeholder="Kategorie" [matAutocomplete]="auto" #newCategory>
+            <mat-icon matSuffix (click)="onAddCategory(newCategory.value)" style="cursor: pointer;">add</mat-icon>
+            <mat-autocomplete role="combobox" #auto="matAutocomplete">
+                <mat-option *ngFor="let category of categories" [value]="category.name">
+                    <span>{{category.name}}</span>
+                    <mat-icon style="position: absolute; right: 0; top: 12px;" matSuffix (click)="onDeleteCategory(category.name)">delete</mat-icon>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field class="p-2" appearance="outline" (click)="picker.open()">
+            <mat-label>Fälligkeitsdatum</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field> 
+        <button mat-stroked-button class="m-2 mb-4" (click)="onAddTask(newCategory.value, taskName.value, picker._datepickerInput['value'])">Aufgabe hinzufügen</button>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-flex flex-column" *ngFor="let category of categories">
+        <h3 class="p-3">{{category.name}}</h3>
+    </div>
+</div>

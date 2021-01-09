@@ -1,0 +1,23 @@
+::ng-deep .mat-tab-links {
+    justify-content: center;
+}
+
+.mat-tab-link {
+    opacity: 1;
+}
+
+.main {
+    background: rgba(255, 255, 255, 0.45);
+    text-align: center;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.logout {
+    position: absolute;
+    right: 0px;
+    color: black;
+    border: 1px solid black;
+    top: 115px;
+    transform: translate(-50%, -50%);
+}

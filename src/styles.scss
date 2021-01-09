@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/variables';
+ 
+@font-face {
+    font-family: 'Tablet-Gothic';
+    src: url('./assets/TabletGothicNarrowW04-Thin.woff') format('woff'),
+         url('./assets/Tablet\ Gothic\ Narrow\ W04\ Thin.ttf') format('truetype');
+}
+
+* {
+    font-family: 'Tablet-Gothic';
+}
+
+html body {
+    background-image: url("./assets/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png");
+    background-size: 100%;
+    padding: 2.5rem;
+    background-size: cover;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-bottom: 0 !important;
+    color: black;
+}

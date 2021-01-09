@@ -1,0 +1,50 @@
+<!-- Register Form -->
+<div class="container auth-form p-4" *ngIf="type === 'register'">
+    <div class="row">
+        <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput required #userEmail>
+            <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Passwort</mat-label>
+            <input type="password" matInput required #userPassword>
+            <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>    
+    </div>
+    <div class="row">
+        <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput required #username>
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-6" (click)="picker.open()">
+            <mat-label>Geburtstag</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>   
+    </div>
+    <div class="row" style="justify-content: flex-end;">
+        <button mat-stroked-button class="mt-1 ml-3 mr-3 auth-btn" (click)="onRegister(userEmail.value, userPassword.value, username.value, picker._datepickerInput['value'])"><span *ngIf="type==='register'">Registrieren</span><span *ngIf="type==='login'">Login</span></button>
+    </div>
+</div>
+
+<!-- Login Form -->
+<div class="container auth-form p-4" *ngIf="type === 'login'">
+    <div class="row">
+        <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput required #userEmail>
+            <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Passwort</mat-label>
+            <input type="password" matInput required #userPassword>
+            <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>    
+    </div>
+    <div class="row" style="justify-content: flex-end;">
+        <button mat-stroked-button class="mt-1 ml-3 mr-3 auth-btn" (click)="onLogin(userEmail.value, userPassword.value)"><span *ngIf="type==='register'">Registrieren</span><span *ngIf="type==='login'">Login</span></button>
+    </div>
+</div>
