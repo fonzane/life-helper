@@ -1,5 +1,6 @@
 <div class="container row">
-    <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-flex flex-column">
+    <!-- Formular zur Aufgabenerstellung -->
+    <ng-template class="col-12 col-sm-6 col-md-4 col-xl-3 d-flex flex-column dialog-container" #taskCreator>
         <h3 class="p-3">Neue Aufgabe erstellen</h3>
         <mat-form-field class="p-2" appearance="outline">
             <mat-label>Neue Aufgabe</mat-label>
@@ -22,9 +23,28 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
         </mat-form-field> 
-        <button mat-stroked-button class="m-2 mb-4" (click)="onAddTask(newCategory.value, taskName.value, picker._datepickerInput['value'])">Aufgabe hinzufügen</button>
+        <button mat-stroked-button matDialogClose class="m-2 mb-4" (click)="onAddTask(newCategory.value, taskName.value, picker._datepickerInput['value'])">Aufgabe hinzufügen</button>
+    </ng-template>
+    <!-- Anzeige der Aufgaben -->
+    <div class="col-12 col-md-6 col-xl-4 d-flex flex-column"
+        *ngFor="let category of categorisedTasks | keyvalue"
+        cdkDropList
+        (cdkDropListDropped)="onElDrop($event, category.key)"
+        [cdkDropListData]="category.value">
+        <h3 class="p-3">{{category.key}}</h3>
+        <mat-card 
+            *ngFor="let task of category.value" 
+            [ngClass]="{'task-done': task.done, 'task-undone': !task.done}" 
+            cdkDrag>
+            <mat-card-content class="mr-2">{{task.name}}</mat-card-content>
+            <mat-card-subtitle class="mr-2" *ngIf="task.dueDate">{{task.dueDate | date:'dd.MM.YYYY'}}</mat-card-subtitle>
+            <div class="d-flex align-items-center">
+                <mat-checkbox (change)="doneChange(task, category.key)" color='primary' [(ngModel)]="task.done"></mat-checkbox>
+                <mat-icon style="cursor: pointer;" (click)="onDeleteTask(task)">delete</mat-icon>
+            </div>
+        </mat-card>
     </div>
-    <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-flex flex-column" *ngFor="let category of categories">
-        <h3 class="p-3">{{category.name}}</h3>
-    </div>
+    <button mat-mini-fab class="add-button" color="primary" (click)="openDialogWithTemplateRef(taskCreator)">
+        <mat-icon>add</mat-icon>
+    </button>
 </div>

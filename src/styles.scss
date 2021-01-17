@@ -2,20 +2,20 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap/scss/variables';
  
-@font-face {
-    font-family: 'Tablet-Gothic';
-    src: url('./assets/TabletGothicNarrowW04-Thin.woff') format('woff'),
-         url('./assets/Tablet\ Gothic\ Narrow\ W04\ Thin.ttf') format('truetype');
-}
+// @font-face {
+//     font-family: 'Tablet-Gothic';
+//     src: url('./assets/TabletGothicNarrowW04-Thin.woff') format('woff'),
+//          url('./assets/Tablet\ Gothic\ Narrow\ W04\ Thin.ttf') format('truetype');
+// }
 
-* {
-    font-family: 'Tablet-Gothic';
-}
+// * {
+//     font-family: 'Tablet-Gothic';
+// }
 
 html body {
     background-image: url("./assets/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png");
     background-size: 100%;
-    padding: 2.5rem;
+    padding: 1rem;
     background-size: cover;
 }
 

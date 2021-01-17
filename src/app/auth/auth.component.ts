@@ -35,7 +35,6 @@ export class AuthComponent implements OnInit {
       const user: User = { email: email, password: password, username: username, birthday: birthday };
       this.authService.onRegister(user).subscribe((resp: any) => {
         if(resp.auth) {
-          localStorage.setItem('token', resp.token);
           this.authService.token = resp.token;
           this.authService.isLoggedIn = true;
           this.router.navigateByUrl('dashboard');

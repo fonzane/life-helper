@@ -2,6 +2,10 @@
     justify-content: center;
 }
 
+header {
+    position: relative;
+}
+
 .mat-tab-link {
     opacity: 1;
 }
@@ -15,9 +19,14 @@
 
 .logout {
     position: absolute;
-    right: 0px;
-    color: black;
-    border: 1px solid black;
-    top: 115px;
-    transform: translate(-50%, -50%);
+    right: 0;
+    top: 3.7rem;
+    color: rgba(0,0,0,.87);
+    z-index: 2;
+    padding: 0.45rem 3rem 0.45rem 3rem;
+    border-radius: 0;
+}
+
+.link-button {
+    border-radius: 0%;
 }

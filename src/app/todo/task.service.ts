@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Category } from '../models/category';
@@ -12,27 +12,35 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
+  getTasks() {
+    return this.http.get(this.apiURL + '/tasks');
+  }
+
   addTask(task: Task) {
     return this.http.post(this.apiURL + '/tasks', task);
   }
-
-  getTasks(userID: string) {
-    const headers = new HttpHeaders().set('userid', userID);
-    return this.http.post(this.apiURL + '/tasks', {headers});
+  
+  updateTask(task: Task | Task[], categoryName: string = null) {
+    const payload = { task, categoryName };
+    return this.http.patch(this.apiURL + '/tasks', payload);
   }
 
-  getCategories(userID: string) {
-    const headers = new HttpHeaders().set('userid', userID);
-    return this.http.get(this.apiURL + '/category', {headers});
+  deleteTask(taskID: string) {
+    const params = new HttpParams().set('taskID', taskID);
+    return this.http.delete(this.apiURL + '/delete', {params});
   }
 
-  newCategory(userID: string, category: string) {
-    const params = new HttpParams().set('userid', userID).set('name', category);
+  getCategories() {
+    return this.http.get(this.apiURL + '/category');
+  }
+
+  newCategory(category: string) {
+    const params = new HttpParams().set('name', category);
     return this.http.post(this.apiURL + '/category', params);
   }
 
-  deleteCategory(userID: string, category: string) {
-    const headers = new HttpHeaders().set('userid', userID).set('name', category);
+  deleteCategory(category: string) {
+    const headers = new HttpHeaders().set('name', category);
     return this.http.delete(this.apiURL + '/category', {headers});
   }
 }
