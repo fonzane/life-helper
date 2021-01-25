@@ -1,5 +1,24 @@
-<div class="container">
-    <h3 class="text-left">Herzlich Willkommen <strong class="text-capitalize">{{username}}</strong>.</h3> 
-    <h3 class="text-left">Heute ist der {{date | date:'dd.MM.YYYY'}} und es ist {{date | date:'HH:mm:ss'}}.</h3>
-    <h3 class="text-left">Du hast <strong>{{undone}}</strong> unerledigte Aufgaben.</h3>
+<div class="container row">
+    <div class="col p-3">
+        <h3 class="text-left">Herzlich Willkommen <strong class="text-capitalize">{{username}}</strong>.</h3> 
+        <h3 class="text-left">Heute ist der {{date | date:'dd.MM.YYYY'}} und es ist {{date | date:'HH:mm:ss'}}.</h3>
+        <h3 class="text-left">Du hast <strong>{{undone}}</strong> unerledigte Aufgaben.</h3>
+    </div>
+    <mat-card class="col" style="background-color: rgba(0, 0, 0,0); box-shadow: none;">
+        <h3>Shoutbox</h3>
+        <div class="shoutbox rounded">
+            <p *ngFor="let message of messages" (click)="onEditMode(message, $event)" class="mt-2 mb-0" role="button"><span class="text-capitalize font-weight-bold">{{message.username}}</span> schrieb am {{message.submittedAt | date:'dd.MM.YYYY, HH:mm'}}: <span class="font-italic">{{message.content}}</span></p>
+        </div>
+        <mat-form-field appearance="outline" class="w-100">
+            <input matInput #messageContent placeholder="Neue Nachricht" (keyup.enter)="onMessageSubmit(messageContent.value)">
+            <mat-icon matSuffix (click)="onMessageSubmit(messageContent.value)" style="cursor: pointer;">add</mat-icon>
+        </mat-form-field>
+    </mat-card>
 </div>
+<ng-template #customSnackBar>
+    <div class="d-flex justify-content-between align-items-center">
+        <span>Du kannst nicht zwei Nachrichten nacheinander posten. Klicke auf deine letzte Nachricht um diese zu bearbeiten.</span>
+        <button mat-button (click)="onSnackbarClick()" style="color: hotpink;">OK</button>
+    </div>
+</ng-template>
+<div class="tooltip"></div>

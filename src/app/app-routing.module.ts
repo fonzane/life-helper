@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthService] },
   { path: 'todo', component: TodoComponent, canActivate: [AuthService] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthService] },
+  { path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthService] }
 ];
 
 @NgModule({

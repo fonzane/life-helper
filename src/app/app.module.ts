@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -19,6 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -27,6 +29,7 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component'; 
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     TodoComponent,
     AuthComponent,
     DashboardComponent,
-    CalendarComponent
+    CalendarComponent,
+    QuestionnairesComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +47,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     DragDropModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
@@ -54,6 +59,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatIconModule,
     MatInputModule,
     MatNativeDateModule,
+    MatSliderModule,
     MatSnackBarModule,
     MatTabsModule
   ],

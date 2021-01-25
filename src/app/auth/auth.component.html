@@ -40,7 +40,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-6">
             <mat-label>Passwort</mat-label>
-            <input type="password" matInput required #userPassword>
+            <input type="password" matInput required #userPassword (keyup.enter)="onLogin(userEmail.value, userPassword.value)">
             <mat-icon matSuffix>vpn_key</mat-icon>
         </mat-form-field>    
     </div>

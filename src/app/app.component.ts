@@ -9,8 +9,8 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'life-helper';
-  linksArray: string[] = ['dashboard', 'calendar', 'todo', 'questionnaire'];
-  links: any = { dashboard: 'Dashboard', todo: 'Aufgaben', calendar: 'Kalender', questionnaire: 'Fragebögen' };
+  linksArray: string[] = ['dashboard', 'calendar', 'todo', 'questionnaires'];
+  links: any = { dashboard: 'Dashboard', todo: 'Aufgaben', calendar: 'Kalender', questionnaires: 'Fragebögen' };
 
   constructor(public router: Router, private authService: AuthService) {}
 

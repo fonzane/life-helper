@@ -1,0 +1,31 @@
+<div class="text-left">
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Fragebogen erstellen">
+            <h3 class="m-2 text-center">Erstelle einen neuen Fragebogen</h3>
+            <div class="row m-0 px-5">
+                <div class="col-4 d-flex align-items-center">
+                    <h4>Wie viele Fragen soll der Fragebogen haben?</h4>
+                </div>
+                <div class="col-8">
+                    <mat-slider color="primary" min="1" max="30" step="1" thumbLabel="true" class="w-100" [(ngModel)]="questionCount"></mat-slider>
+                </div>
+            </div>
+            <form [formGroup]="questionnarieForm">
+                <div formArrayName="questions">
+                    <div class="row m-0 px-5" *ngFor="let arr of questionCountArray(questionCount); let i = index">
+                        <div class="col" *ngFor="let tempArr of arr; let j = index">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <input [formControlName]="(i*2+j)" matInput placeholder="Frage Nr. {{(i*2+j)+1}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row m-0 px-5 justify-content-end">
+                <button mat-button (click)="onCreateQuestionnaire()">Fragebogen erstellen</button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Fragebögen bearbeiten"> Content 2 </mat-tab>
+        <mat-tab label="Fragebogen "> Content 3 </mat-tab>
+    </mat-tab-group>
+</div>
