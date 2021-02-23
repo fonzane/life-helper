@@ -8,34 +8,18 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class QuestionnairesComponent implements OnInit {
 
+  weekdays: Array<string> = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
   questionCount: number = 1;
   questionnarieForm = this.fb.group({
-    questions: this.fb.array([
-      this.fb.control('')
-    ])
+    questions: this.fb.array([]),
+    weekdays: this.fb.control('')
   })
 
   questionCountArray(count: number) {
-    this.clearQuestions();
-    let arr = [];
-    let tempArr = [];
-
-    for (let i = 1; i <= count; i++) {
+    this.questions.clear();
+    for (let i = 0; i < count; i++) {
       this.questions.push(this.fb.control(''));
-      if(i%2) {
-        tempArr.push(i);
-        if(i === count) {
-          arr.push(tempArr);
-          return arr;
-        }
-      } else if (!(i%2)) {
-        tempArr.push(i);
-        arr.push(tempArr);
-        tempArr = [];
-      }
     }
-    return arr;
-    // [[1,2], [3,4], [5,6], [7,8]];
   }
 
   constructor(private fb: FormBuilder) { }

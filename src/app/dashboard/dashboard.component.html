@@ -8,6 +8,7 @@
         <h3>Shoutbox</h3>
         <div class="shoutbox rounded">
             <p *ngFor="let message of messages" (click)="onEditMode(message, $event)" class="mt-2 mb-0" role="button"><span class="text-capitalize font-weight-bold">{{message.username}}</span> schrieb am {{message.submittedAt | date:'dd.MM.YYYY, HH:mm'}}: <span class="font-italic">{{message.content}}</span></p>
+            <p *ngIf="!messages.length" class="mt-2 mb-0 font-italic">Es gibt noch keine Nachrichten.</p>
         </div>
         <mat-form-field appearance="outline" class="w-100">
             <input matInput #messageContent placeholder="Neue Nachricht" (keyup.enter)="onMessageSubmit(messageContent.value)">

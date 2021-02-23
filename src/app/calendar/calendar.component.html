@@ -9,7 +9,7 @@
     </mat-grid-list>
     <!-- Kalendarzellen -->
     <mat-grid-list cols="7" rowHeight="3:1">
-        <mat-grid-tile [ngStyle]="checkToday(day - getFirstWeekDay(month, year), month, year) && {'backgroundColor': 'rgba(0, 255, 224, 0.3)'}" class="p-3" *ngFor="let day of getRangedArray(getCellCount(month, year) + getMissingCellCount(month, year), 1)">
+        <mat-grid-tile class="p-3" *ngFor="let day of getRangedArray(getCellCount(month, year) + getMissingCellCount(month, year), 1)">
             <span *ngIf="day > getFirstWeekDay(month, year) && day <= getMonthDays(month, year) + getFirstWeekDay(month, year)">{{day - getFirstWeekDay(month, year)}}</span>
         </mat-grid-tile>
     </mat-grid-list>

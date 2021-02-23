@@ -20,6 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -59,6 +60,7 @@ import { QuestionnairesComponent } from './questionnaires/questionnaires.compone
     MatIconModule,
     MatInputModule,
     MatNativeDateModule,
+    MatSelectModule,
     MatSliderModule,
     MatSnackBarModule,
     MatTabsModule

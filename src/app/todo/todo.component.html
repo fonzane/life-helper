@@ -23,7 +23,7 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
         </mat-form-field> 
-        <button mat-stroked-button matDialogClose class="m-2 mb-4" (click)="onAddTask(newCategory.value, taskName.value, picker._datepickerInput['value'])">Aufgabe hinzufügen</button>
+        <button mat-stroked-button class="m-2 mb-4" (click)="onAddTask(newCategory.value, taskName.value, picker._datepickerInput['value'])">Aufgabe hinzufügen</button>
     </ng-template>
     <!-- Anzeige der Aufgaben -->
     <div class="col-12 col-md-6 col-xl-4 d-flex flex-column"

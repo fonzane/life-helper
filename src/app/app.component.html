@@ -1,14 +1,14 @@
 <header class="container text-center d-flex flex-column">
     <h1 class="pb-2">Life Helper</h1>
     <h5>"Jeder Tag ist eine neue Chance, das zu tun, was du möchtest." - <em>Friedrich Schiller</em></h5>
-    <button mat-button class="logout px-md-5 px-lg-8" *ngIf="isLoggedIn()" (click)="onLogout()">
-        Logout
-    </button>
 </header>
 <nav class="container nav-container" disableRipple mat-tab-nav-bar>
     <div *ngIf="isLoggedIn() else authNav">
-        <button class="link-button px-md-5 px-lg-8" mat-button mat-tab-link *ngFor="let link of linksArray" (click)="router.navigateByUrl(link)">
+        <button class="link-button px-md-2 px-lg-5 px-xl-8" mat-button mat-tab-link *ngFor="let link of linksArray" (click)="router.navigateByUrl(link)">
             {{links[link]}}
+        </button>
+        <button mat-button class="link-button px-md-2 px-lg-5 px-xl-8 mat-tab-link" *ngIf="isLoggedIn()" (click)="onLogout()">
+            Logout
         </button>
     </div>
     <ng-template #authNav>
