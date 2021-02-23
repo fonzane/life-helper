@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Category } from '../models/category';
 import { Task } from '../models/task';
@@ -34,7 +35,7 @@ export class TaskService {
     return this.http.get(this.apiURL + '/category');
   }
 
-  newCategory(category: string) {
+  newCategory(category: string): Observable<Object> {
     const params = new HttpParams().set('name', category);
     return this.http.post(this.apiURL + '/category', params);
   }

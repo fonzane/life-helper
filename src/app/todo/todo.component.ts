@@ -2,6 +2,7 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { Category } from '../models/category';
 import { Task } from '../models/task';
@@ -105,30 +106,40 @@ export class TodoComponent implements OnInit {
   }
 
   // Es existiert noch ein Bug wenn categoryName not null aber category nicht existiert
-  async onAddTask(categoryName: string, taskName: string, dueDate: Date) {
+  onAddTask(categoryName: string, taskName: string, dueDate: Date) {
+    // Declare a function to create the task for multiple use-cases
+    const createTask = () => {
+      const task : Task = { 
+        category: category,
+        categoryID: category._id,
+        name: taskName,
+        dueDate: dueDate ? new Date(dueDate.setHours(dueDate.getHours()+1)).toISOString() : '',
+        userID: userID,
+        done: false
+      }
+      this.task = task;
+      this.dialogRef.close();
+    }
     const userID: string = this.authService.getUserID();
     let category: Category = this.categories.find(category => category.name === categoryName);
-    if(!category && categoryName === "") {
-      this.snackBar.open('Bitte die Kategorie erst hinzufügen.', 'OK', { duration: 3000 });
+    
+    if (category) {
+      createTask();
+    } else if(!category && categoryName === "") {
+      this.snackBar.open('Bitte eine Kategorie angeben.', 'OK', { duration: 3000 });
       return
     } else if (!category && categoryName) {
-      this.onAddCategory(categoryName);
-      category = this.categories.find(category => category.name === categoryName);
-      if(!category) {
+      this.onAddCategory(categoryName, true).subscribe((resp: { message: string, categoryCreation: boolean, newCategory?: Category, reason: string }) => {
+        console.log(resp);
+        this.saveCategory(resp);
+        category = resp.newCategory;
+        createTask();
+      });
+      if(!category && !categoryName) {
         this.snackBar.open('Es ist zu einem Fehler gekommen', 'OK', {duration: 3000});
         return;
       }
     }
-    const task : Task = { 
-      category: category,
-      categoryID: category._id,
-      name: taskName,
-      dueDate: dueDate ? new Date(dueDate.setHours(dueDate.getHours()+1)).toISOString() : '',
-      userID: userID,
-      done: false
-    }
-    this.task = task;
-    this.dialogRef.close();
   }
 
   onDeleteTask(task: Task) {
@@ -143,22 +154,32 @@ export class TodoComponent implements OnInit {
     })
   }
 
-  onAddCategory(categoryName: string) {
-    if(categoryName) {
-      this.taskService.newCategory(categoryName).subscribe((resp: { message: string, categoryCreation: boolean, newCategory?: Category, reason: string }) => {
-        if(resp.categoryCreation) {
-          this.categories.push(resp.newCategory);
-          this.categories.sort((a,b) => a.name > b.name ? 1 : -1);
-          this.snackBar.open('Kategorie wurde hinzugefügt', 'OK' , { duration: 3000 });
-          this.newCategory.nativeElement.value = '';
-        } else if (!resp.categoryCreation) {
-          this.newCategory.nativeElement.value = '';
-          this.snackBar.open(`${resp.message} Grund: ${resp.reason}`, 'OK', {duration: 3000});
-        }
+  onAddCategory(categoryName: string, newTask: boolean = false) {
+    let saveCategory = (): Observable<Object> => {
+      return this.taskService.newCategory(categoryName);
+    }
+    if(categoryName && !newTask) {
+      saveCategory().subscribe((resp: { message: string, categoryCreation: boolean, newCategory?: Category, reason: string }) => {
+        this.saveCategory(resp);
       });
-    } else {
+    } else if (categoryName && newTask) {
+      return saveCategory();
+    } else if (!categoryName) {
       this.snackBar.open('Bitte gib eine gültige Kateogrie an.', 'OK' , { duration: 3000 });
     }
+  }
+
+  saveCategory(resp: { message: string, categoryCreation: boolean, newCategory?: Category, reason: string }) {
+    if(resp.categoryCreation) {
+      this.categories.push(resp.newCategory);
+      this.categories.sort((a,b) => a.name > b.name ? 1 : -1);
+      this.snackBar.open('Kategorie wurde hinzugefügt', 'OK' , { duration: 3000 });
+      this.newCategory.nativeElement.value = '';
+    } else if (!resp.categoryCreation) {
+      this.newCategory.nativeElement.value = '';
+      this.snackBar.open(`${resp.message} Grund: ${resp.reason}`, 'OK', {duration: 3000});
+    }
+    console.log(this.categories);
   }
 
   onDeleteCategory(category: string) {
@@ -167,8 +188,8 @@ export class TodoComponent implements OnInit {
       return;
     }
     this.taskService.deleteCategory(category).subscribe((resp: Category) => {
-      console.log(resp);
-      this.categories.splice(this.categories.indexOf(resp), 1);
+      console.log();
+      this.categories.splice(this.categories.findIndex(category => category.name === resp.name), 1);
       this.newCategory.nativeElement.value = "";
       this.snackBar.open('Kategorie wurde entfernt', 'OK', { duration: 3000 });
     })
