@@ -60,6 +60,7 @@ export class TodoComponent implements OnInit {
     });
   }
 
+  // Bug fixen, dass neue Task erstellt wird wann immer der Dialog geschlossen wird.
   openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
     this.dialogRef = this.dialog.open(templateRef);
 
@@ -105,7 +106,6 @@ export class TodoComponent implements OnInit {
     return categorisedTasks;
   }
 
-  // Es existiert noch ein Bug wenn categoryName not null aber category nicht existiert
   onAddTask(categoryName: string, taskName: string, dueDate: Date) {
     // Declare a function to create the task for multiple use-cases
     const createTask = () => {

@@ -1,43 +1,9 @@
-<div class="text-left">
-    <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Fragebogen erstellen">
-            <h3 class="m-2 text-center">Erstelle einen neuen Fragebogen</h3>
-            <div class="row m-0 px-5">
-                <div class="col d-flex flex-column">
-                    <h4 class="text-center">Wie viele Fragen soll der Fragebogen haben?</h4>
-                    <mat-slider color="primary" (change)="questionCountArray(questionCount.value)" min="1" max="30" step="1" thumbLabel="true" class="w-100" #questionCount></mat-slider>
-                </div>
-                <div class="col d-flex flex-column">
-                    <h4 class="text-center">Zu welcher Stunde?</h4>
-                    <mat-slider color="primary" min="0" max="23" step="1" thumbLabel="true"></mat-slider>
-                </div>
-            </div>
-            <form [formGroup]="questionnarieForm">
-                <div formArrayName="questions">
-                    <div class="row m-0 px-5">
-                        <div class="col-6-md col-sm col-4-lg" *ngFor="let question of questions.controls; let i = index">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <input [formControlName]="i" matInput placeholder="Frage Nr. {{i+1}}">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0 px-5">
-                    
-                    <div class="col">
-                        <mat-form-field appearance="outline">
-                            <mat-select placeholder="Gib die Wochentage an." formControlName="weekdays" multiple>
-                                <mat-option *ngFor="let weekday of weekdays" [value]="weekday">{{weekday}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </form>
-            <div class="row m-0 px-5 justify-content-end">
-                <button mat-button (click)="onCreateQuestionnaire()">Fragebogen erstellen</button>
-            </div>
-        </mat-tab>
-        <mat-tab label="Fragebögen bearbeiten"> Content 2 </mat-tab>
-        <mat-tab label="Fragebogen "> Content 3 </mat-tab>
-    </mat-tab-group>
-</div>
+<nav mat-tab-nav-bar disableRipple>
+    <button mat-button
+        mat-tab-link
+        *ngFor="let link of links | keyvalue:originalOrder"
+        (click)="router.navigateByUrl('questionnaires/'+link.key)"
+        class="text-black">
+    {{link.value}}</button>
+</nav>
+<router-outlet></router-outlet>

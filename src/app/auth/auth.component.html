@@ -25,8 +25,8 @@
             <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
         </mat-form-field>   
     </div>
-    <div class="row" style="justify-content: flex-end;">
-        <button mat-stroked-button class="mt-1 ml-3 mr-3 auth-btn" (click)="onRegister(userEmail.value, userPassword.value, username.value, picker._datepickerInput['value'])"><span *ngIf="type==='register'">Registrieren</span><span *ngIf="type==='login'">Login</span></button>
+    <div class="row">
+        <button mat-stroked-button class="col mt-1 auth-btn" (click)="onRegister(userEmail.value, userPassword.value, username.value, picker._datepickerInput['value'])"><span *ngIf="type==='register'">Registrieren</span><span *ngIf="type==='login'">Login</span></button>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
             <mat-icon matSuffix>vpn_key</mat-icon>
         </mat-form-field>    
     </div>
-    <div class="row" style="justify-content: flex-end;">
-        <button mat-stroked-button class="mt-1 ml-3 mr-3 auth-btn" (click)="onLogin(userEmail.value, userPassword.value)"><span *ngIf="type==='register'">Registrieren</span><span *ngIf="type==='login'">Login</span></button>
+    <div class="row">
+        <button class="col auth-btn mt-1" mat-stroked-button (click)="onLogin(userEmail.value, userPassword.value)"><span *ngIf="type==='register'">Registrieren</span><span *ngIf="type==='login'">Login</span></button>
     </div>
 </div>

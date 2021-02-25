@@ -1,42 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { KeyValue } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-questionnaires',
   templateUrl: './questionnaires.component.html',
   styleUrls: ['./questionnaires.component.sass']
 })
-export class QuestionnairesComponent implements OnInit {
+export class QuestionnairesComponent {
 
-  weekdays: Array<string> = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-  questionCount: number = 1;
-  questionnarieForm = this.fb.group({
-    questions: this.fb.array([]),
-    weekdays: this.fb.control('')
-  })
+  linksArray: string[] = ['Fragebogen erstellen', 'Fragebögen editieren', "Fragebögen anzeigen"];
+  links = { new: 'Fragebogen erstellen', edit: 'Fragebögen editieren', show: 'Fragebögen anzeigen' };
 
-  questionCountArray(count: number) {
-    this.questions.clear();
-    for (let i = 0; i < count; i++) {
-      this.questions.push(this.fb.control(''));
-    }
+  constructor(private router: Router) {
+    
   }
 
-  constructor(private fb: FormBuilder) { }
-
-  ngOnInit(): void {
+  originalOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
+    return 0;
   }
-
-  get questions() {
-    return this.questionnarieForm.get('questions') as FormArray;
-  }
-
-  clearQuestions() {
-    this.questions.clear();
-  }
-
-  onCreateQuestionnaire() {
-    console.log(this.questionnarieForm);
-  }
-
 }

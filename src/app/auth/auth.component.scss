@@ -3,10 +3,10 @@
     max-width: 45rem;
 }
 
-::ng-deep .mat-form-field-wrapper {
-    padding-bottom: 0;
+.auth-btn {
+    margin: 0 0.75rem;
 }
 
-.auth-btn {
-    flex-grow: 1;
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
 }

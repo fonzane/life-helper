@@ -22,8 +22,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { TodoComponent } from './todo/todo.component';
 import { AuthComponent } from './auth/auth.component';
@@ -31,6 +33,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component'; 
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
+import { NewQuestionnaireComponent } from './questionnaires/new-questionnaire/new-questionnaire.component';
+import { EditQuestionnairesComponent } from './questionnaires/edit-questionnaires/edit-questionnaires.component';
+import { ShowQuestionnairesComponent } from './questionnaires/show-questionnaires/show-questionnaires.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,10 @@ import { QuestionnairesComponent } from './questionnaires/questionnaires.compone
     AuthComponent,
     DashboardComponent,
     CalendarComponent,
-    QuestionnairesComponent
+    QuestionnairesComponent,
+    NewQuestionnaireComponent,
+    EditQuestionnairesComponent,
+    ShowQuestionnairesComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +70,10 @@ import { QuestionnairesComponent } from './questionnaires/questionnaires.compone
     MatNativeDateModule,
     MatSelectModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },

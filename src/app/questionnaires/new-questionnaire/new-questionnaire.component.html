@@ -1,0 +1,42 @@
+<h3 class="m-2 text-center">Erstelle einen neuen Fragebogen</h3>
+<form [formGroup]="questionnarieForm">
+    <div class="row m-0 px-5 mt-2">
+        <mat-form-field appearance="outline" class="col-8">
+            <mat-label>Gib dem Fragebogen einen Namen</mat-label>
+            <input formControlName="name" matInput placeholder="Name des Fragebogen">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-4">
+            <mat-select placeholder="Gib die Wochentage an." formControlName="weekdays" multiple>
+                <mat-option *ngFor="let weekday of weekdays" [value]="weekday">{{weekday}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="row m-0 px-5">
+        <div class="col d-flex flex-column">
+            <h4 class="text-center">Wie viele Fragen soll der Fragebogen haben?</h4>
+            <mat-slider (change)="questionCountArray(questionnarieForm.value.questionCount)" color="primary" min="1" max="30" step="1" thumbLabel="true" class="w-100" formControlName="questionCount"></mat-slider>
+        </div>
+        <div class="col d-flex flex-column">
+            <h4 class="text-center">Zu welcher Stunde?</h4>
+            <mat-slider color="primary" min="0" max="23" step="1" thumbLabel="true" formControlName="hour"></mat-slider>
+        </div>
+    </div>
+    <div formArrayName="questions">
+        <div class="row m-0 px-5">
+            <div class="col-6-md col-sm col-4-lg" *ngFor="let question of questions.controls; let i = index">
+                <mat-form-field [formGroupName]="i" appearance="outline" class="w-100">
+                    <input [formControlName]="name" matInput placeholder="Frage Nr. {{i+1}}">
+                    <mat-slide-toggle [formControlName]="open" matSuffix matTooltip="Offenes Format"></mat-slide-toggle>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 px-5">
+        
+    </div>
+</form>
+<div class="row m-0 px-5">
+    <div class="col justify-content-end d-flex">
+        <button mat-stroked-button (click)="onCreateQuestionnaire()">Fragebogen erstellen</button>
+    </div>
+</div>
