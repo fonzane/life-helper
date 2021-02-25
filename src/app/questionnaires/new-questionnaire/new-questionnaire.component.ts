@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Questionnaire } from 'src/app/models/questionnaire';
 import { QuestionnaireService } from '../questionnaire.service';
 
@@ -12,10 +13,10 @@ export class NewQuestionnaireComponent implements OnInit {
 
   weekdays: Array<string> = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
   questionnarieForm = this.fb.group({
-    name: this.fb.control(''),
-    questions: this.fb.array([]),
+    name: this.fb.control('', Validators.required),
+    questions: this.fb.array([], Validators.required),
     weekdays: this.fb.control(''),
-    hour: this.fb.control(''),
+    hour: this.fb.control(0),
     questionCount: this.fb.control('')
   })
 
@@ -24,14 +25,16 @@ export class NewQuestionnaireComponent implements OnInit {
     for (let i = 0; i < count; i++) {
       this.questions.push(
         this.fb.group({
-          name: this.fb.control(''),
-          open: this.fb.control('')
+          name: this.fb.control('', Validators.required),
+          open: this.fb.control(false)
         })
       );
     }
   }
 
-  constructor(private fb: FormBuilder, private questionnaireService: QuestionnaireService) { }
+  constructor(private fb: FormBuilder,
+              private questionnaireService: QuestionnaireService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -46,10 +49,19 @@ export class NewQuestionnaireComponent implements OnInit {
 
   onCreateQuestionnaire() {
     let questionnaire: Questionnaire = this.questionnarieForm.value;
-    console.log(questionnaire);
-    this.questionnaireService.newQuestionnaire(this.questionnarieForm.value).subscribe(resp => {
-      console.log(resp);
-    })
+    if (this.questionnarieForm.valid) {
+      this.questionnaireService.newQuestionnaire(this.questionnarieForm.value).subscribe((resp: { message: string, questionnaireCreation: boolean, newQuestionnaire?: Questionnaire, reason?: string }) => {
+        if (resp.questionnaireCreation) {
+          this.snackBar.open(`${resp.message}`, "OK", { duration: 3000 });
+          console.log(resp.newQuestionnaire);
+        } else if (!resp.questionnaireCreation) {
+          this.snackBar.open(`${resp.message}`, "OK", { duration: 3000 });
+          console.log(resp.reason);
+        }
+      })
+    } else {
+      this.snackBar.open("Bitte fülle alle Felder aus.", "OK", { duration: 3000});
+    }
   }
 
 }

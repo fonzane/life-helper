@@ -24,9 +24,9 @@
     <div formArrayName="questions">
         <div class="row m-0 px-5">
             <div class="col-6-md col-sm col-4-lg" *ngFor="let question of questions.controls; let i = index">
-                <mat-form-field [formGroupName]="i" appearance="outline" class="w-100">
-                    <input [formControlName]="name" matInput placeholder="Frage Nr. {{i+1}}">
-                    <mat-slide-toggle [formControlName]="open" matSuffix matTooltip="Offenes Format"></mat-slide-toggle>
+                <mat-form-field [formGroup]="question" appearance="outline" class="w-100">
+                    <input formControlName="name" matInput placeholder="Frage Nr. {{i+1}}">
+                    <mat-slide-toggle formControlName="open" matSuffix matTooltip="Offenes Format"></mat-slide-toggle>
                 </mat-form-field>
             </div>
         </div>
