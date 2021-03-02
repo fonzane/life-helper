@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Questionnaire } from 'src/app/models/questionnaire';
 import { QuestionnaireService } from '../questionnaire.service';
 
@@ -25,7 +26,7 @@ export class NewQuestionnaireComponent implements OnInit {
     for (let i = 0; i < count; i++) {
       this.questions.push(
         this.fb.group({
-          name: this.fb.control('', Validators.required),
+          phrase: this.fb.control('', Validators.required),
           open: this.fb.control(false)
         })
       );
@@ -34,7 +35,8 @@ export class NewQuestionnaireComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private questionnaireService: QuestionnaireService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -49,6 +51,7 @@ export class NewQuestionnaireComponent implements OnInit {
 
   onCreateQuestionnaire() {
     let questionnaire: Questionnaire = this.questionnarieForm.value;
+    questionnaire.userID = this.auth.getUserID();
     if (this.questionnarieForm.valid) {
       this.questionnaireService.newQuestionnaire(this.questionnarieForm.value).subscribe((resp: { message: string, questionnaireCreation: boolean, newQuestionnaire?: Questionnaire, reason?: string }) => {
         if (resp.questionnaireCreation) {

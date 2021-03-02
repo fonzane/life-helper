@@ -6,6 +6,7 @@ export interface Questionnaire {
     questionCount: number;
     weekdays: Array<string>;
     hour: number;
+    userID: string;
 }
 
 export interface Question {
