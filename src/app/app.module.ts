@@ -18,6 +18,7 @@ import { NewQuestionnaireComponent } from './questionnaires/new-questionnaire/ne
 import { EditQuestionnairesComponent } from './questionnaires/edit-questionnaires/edit-questionnaires.component';
 import { ShowQuestionnairesComponent } from './questionnaires/show-questionnaires/show-questionnaires.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { QuestionnaireCreatorComponent } from './questionnaires/new-questionnaire/questionnaire-creator/questionnaire-creator.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     NewQuestionnaireComponent,
     EditQuestionnairesComponent,
     ShowQuestionnairesComponent,
+    QuestionnaireCreatorComponent,
   ],
   imports: [
     BrowserModule,
