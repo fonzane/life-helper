@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { TodoComponent } from './todo/todo.component';
 import { AuthComponent } from './auth/auth.component';
@@ -31,7 +32,7 @@ import { QuestionnaireCreatorComponent } from './questionnaires/new-questionnair
     NewQuestionnaireComponent,
     EditQuestionnairesComponent,
     ShowQuestionnairesComponent,
-    QuestionnaireCreatorComponent,
+    QuestionnaireCreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,7 @@ import { QuestionnaireCreatorComponent } from './questionnaires/new-questionnair
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
