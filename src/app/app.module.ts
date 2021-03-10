@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { TodoComponent } from './todo/todo.component';
 import { AuthComponent } from './auth/auth.component';
@@ -18,6 +19,7 @@ import { NewQuestionnaireComponent } from './questionnaires/new-questionnaire/ne
 import { EditQuestionnairesComponent } from './questionnaires/edit-questionnaires/edit-questionnaires.component';
 import { ShowQuestionnairesComponent } from './questionnaires/show-questionnaires/show-questionnaires.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { QuestionnaireCreatorComponent } from './questionnaires/new-questionnaire/questionnaire-creator/questionnaire-creator.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     NewQuestionnaireComponent,
     EditQuestionnairesComponent,
     ShowQuestionnairesComponent,
+    QuestionnaireCreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

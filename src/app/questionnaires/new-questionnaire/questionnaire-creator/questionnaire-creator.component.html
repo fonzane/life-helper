@@ -1,0 +1,49 @@
+<div class="main">
+    <form [formGroup]="questionnaireForm">
+        <div class="row">
+            <h3 class="text-center">Gib dem Fragebogen einen Namen</h3>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="name" placeholder="Name">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <h3 class="text-center">An welchen Tagen möchtest du den Fragebogen ausfüllen?</h3>
+            <mat-form-field appearance="outline">
+                <mat-select (valueChange)="setScheduleArray(questionnaireForm.controls.weekdays.value.length + 1)" placeholder="Gib die Wochentage an." formControlName="weekdays" multiple>
+                    <mat-option *ngFor="let weekday of weekdays"
+                        [value]="weekday">
+                        {{weekday}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row" formArrayName="schedule">
+            <div class="col" *ngFor="let scheduleControl of questionnaireForm.controls.schedule['controls']; let i = index">
+                <p class="p-1 m-0">{{questionnaireForm.controls.weekdays.value[i]}}</p>
+                <mat-form-control class="d-flex align-items-center">
+                    <mat-form-field appearance="outline">
+                        <input matInput [formControlName]="i" [ngxTimepicker]="picker" [format]="24">
+                        <ngx-material-timepicker #picker></ngx-material-timepicker>
+                    </mat-form-field>
+                </mat-form-control>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="d-inline-block text-center">Wieviele Fragen soll der Fragebogen haben?</h3>
+            <mat-slider formControlName="questionCount" min="1" max="30" step="1" thumbLabel="true"></mat-slider>
+        </div>
+        <div class="row">
+            <button mat-raised-button color="primary" (click)="onAddQuestions(questionnaireForm.controls.questionCount.value, newQuestionDialog)">Fragen hinzufügen</button>
+        </div>
+    </form>
+</div>
+<ng-template #newQuestionDialog>
+    <div class="d-flex flex-column">
+        <h3 class="text-center">Bitte gib eine Frage an</h3>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Frage" #question>
+            <mat-slide-toggle matSuffix matTooltip="Offenes Format" #open></mat-slide-toggle>
+        </mat-form-field>
+        <button mat-raised-button (click)="closeQuestionDialog(question.value, open.checked)">OK</button>
+    </div>
+</ng-template>

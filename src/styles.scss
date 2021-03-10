@@ -23,3 +23,10 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 0 !important;
     color: black;
 }
+
+.timepicker-overlay {
+    z-index: 1100 !important;
+}
+.timepicker-backdrop-overlay {
+    z-index: 1100 !important;
+}
