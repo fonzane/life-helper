@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({

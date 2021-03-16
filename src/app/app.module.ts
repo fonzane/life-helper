@@ -20,6 +20,7 @@ import { EditQuestionnairesComponent } from './questionnaires/edit-questionnaire
 import { ShowQuestionnairesComponent } from './questionnaires/show-questionnaires/show-questionnaires.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { QuestionnaireCreatorComponent } from './questionnaires/new-questionnaire/questionnaire-creator/questionnaire-creator.component';
+import { ObjectPipePipe } from './services/object-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { QuestionnaireCreatorComponent } from './questionnaires/new-questionnair
     NewQuestionnaireComponent,
     EditQuestionnairesComponent,
     ShowQuestionnairesComponent,
-    QuestionnaireCreatorComponent
+    QuestionnaireCreatorComponent,
+    ObjectPipePipe
   ],
   imports: [
     BrowserModule,

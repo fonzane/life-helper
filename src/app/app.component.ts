@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,8 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'life-helper';
-  linksArray: string[] = ['dashboard', 'calendar', 'todo', 'questionnaires/new'];
-  links: any = { dashboard: 'Dashboard', todo: 'Aufgaben', calendar: 'Kalender', "questionnaires/new": 'Fragebögen' };
+  linksArray: string[] = ['dashboard', 'calendar', 'todo', 'questionnaires'];
+  links: any = { dashboard: 'Dashboard', todo: 'Aufgaben', calendar: 'Kalender', "questionnaires": 'Fragebögen' };
 
   constructor(public router: Router, private authService: AuthService) {}
 

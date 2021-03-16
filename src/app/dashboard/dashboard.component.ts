@@ -1,6 +1,6 @@
 import { Component, ElementRef, EmbeddedViewRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../services/auth.service';
 import { ShoutboxMessage } from '../models/shoutboxMessage';
 import { Task } from '../models/task';
 import { TaskService } from '../todo/task.service';

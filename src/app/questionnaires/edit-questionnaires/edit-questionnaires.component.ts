@@ -10,6 +10,7 @@ export class EditQuestionnairesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

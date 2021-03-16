@@ -1,4 +1,4 @@
-<nav mat-tab-nav-bar disableRipple>
+<!-- <nav mat-tab-nav-bar disableRipple>
     <button mat-button
         mat-tab-link
         *ngFor="let link of links | keyvalue:originalOrder"
@@ -6,4 +6,87 @@
         class="text-black">
     {{link.value}}</button>
 </nav>
+<router-outlet></router-outlet> -->
+<!-- <table mat-table [dataSource]="questionnaires" multiTemplateDataRows>
+    <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef class="header-row">Name</th>
+        <td *matCellDef="let element"> {{element.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Erstellt">
+        <th mat-header-cell *matHeaderCellDef class="header-row">Erstellt</th>
+        <td *matCellDef="let element"> {{element.createdAt | date:'dd.MM.YYYY HH:mm'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <table #innerTable mat-table [dataSource]="element.questions">
+                    <ng-container matColumnDef="Frage">
+                        <th mat-header-cell *matHeaderCellDef class="header-row">Frage</th>
+                        <td mat-cell *matCellDef="let element">{{element.phrase}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Format">
+                        <th mat-header-cell *matHeaderCellDef class="header-row">Format</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngIf="element.open else closed">Offen</span>
+                            <ng-template #closed>
+                                <span>Geschlossen</span>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="['Frage', 'Format']"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['Frage', 'Format']"></tr>
+                </table>
+                <div class="row">
+                    <div class="col"></div>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"></tr>
+    <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
+</table> -->
+
+<div class="container">
+    <h2 class="text-center m-2">Fragebögen</h2>
+    <mat-accordion class="align-headers">
+        <mat-expansion-panel *ngFor="let questionnaire of questionnaires">
+            <mat-expansion-panel-header>
+                <div class="row flex-grow-1">
+                    <div class="col text-start">
+                        {{questionnaire.name}}
+                    </div>
+                    <div class="col text-start">
+                        {{questionnaire.createdAt | date:"dd.MM.YYYY HH:mm"}}
+                    </div>
+                    <div class="delete-icon-container" (click)="onDeleteQuestionnaire(questionnaire._id, $event)">
+                        <mat-icon>delete</mat-icon>
+                    </div>
+                </div>
+            </mat-expansion-panel-header>
+            <div class="row mt-1" *ngFor="let question of questionnaire.questions; index as i">
+                <div class="col text-start py-1">
+                    Frage {{i+1}}:&nbsp;{{question.phrase}}
+                </div>
+                <div class="col text-start py-1 ps-0">
+                    Format:&nbsp;<span *ngIf="question.open else closed">Offen</span><ng-template #closed>Geschlossen</ng-template>
+                </div>
+            </div>
+            <div class="row mt-1 schedule-row">
+                <p class="text-start mb-1 mt-3 schedule-para">Ausfülltermine</p>
+                <span class="schedule-span" *ngFor="let scheduleObj of questionnaire.schedule">{{scheduleObj | objectPipe}}</span>
+                <!-- <div class="col-12 text-start">Zeitpunkte zum Ausfüllen:</div>
+                <div class="col text-start" *ngFor="let scheduleObj of questionnaire.schedule">{{scheduleObj | objectPipe}}</div> -->
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <button mat-raised-button [routerLink]="['new']" class="bg-success text-white mt-2">Neuer Fragebogen</button>
+</div>
 <router-outlet></router-outlet>

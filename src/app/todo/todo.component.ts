@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Category } from '../models/category';
 import { Task } from '../models/task';
 import { TaskService } from './task.service';

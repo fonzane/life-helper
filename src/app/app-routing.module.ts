@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditQuestionnairesComponent } from './questionnaires/edit-questionnaires/edit-questionnaires.component';

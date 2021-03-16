@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Question, Questionnaire, Schedule } from 'src/app/models/questionnaire';
-import { QuestionnaireService } from '../../questionnaire.service';
+import { QuestionnaireService } from '../../../services/questionnaire.service';
 
 @Component({
   selector: 'app-questionnaire-creator',
@@ -77,6 +77,7 @@ export class QuestionnaireCreatorComponent implements OnInit {
       }
       this.questionnaireServie.newQuestionnaire(questionnaire).subscribe(response => {
         console.log(response);
+        this.questionnaireServie.newQuestionnaireEvent.next(questionnaire);
       })
     }
   }
