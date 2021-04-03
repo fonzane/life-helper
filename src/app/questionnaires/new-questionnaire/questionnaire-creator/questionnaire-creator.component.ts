@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Question, Questionnaire, Schedule } from 'src/app/models/questionnaire';
 import { QuestionnaireService } from '../../../services/questionnaire.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { scheduleValidator } from 'src/app/services/schedule-validator.directive';
 
 @Component({
   selector: 'app-questionnaire-creator',
@@ -35,7 +36,7 @@ export class QuestionnaireCreatorComponent implements OnInit {
     this.schedule.clear();
     for (let i = 0; i < count; i++) {
       this.schedule.push(
-        this.fb.control('00:00')
+        this.fb.control('00:00', scheduleValidator())
       )
     }
   }
@@ -50,7 +51,14 @@ export class QuestionnaireCreatorComponent implements OnInit {
   }
 
   async onAddQuestions(value: number, templateRef: TemplateRef<any>) {
-    console.log(this.questionnaireForm.get('name'));
+    console.log(this.questionnaireForm);
+    return;
+    if (!this.questionnaireForm.valid) {
+      console.log(this.questionnaireForm.get('name').value);
+      console.log(this.questionnaireForm.get('weekdays').value);
+      this.matSnackBar.open('Bitte fülle zuerst alle Felder aus.', 'OK', {duration: 3000});
+      return;
+    }
     let count = 0;
     while (count < value) {
       this.dialogRef = this.dialog.open(templateRef, {
