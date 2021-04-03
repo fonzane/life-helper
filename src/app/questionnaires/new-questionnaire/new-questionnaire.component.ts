@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { QuestionnaireService } from 'src/app/services/questionnaire.service';
 import { QuestionnaireCreatorComponent } from './questionnaire-creator/questionnaire-creator.component';
@@ -13,7 +14,8 @@ export class NewQuestionnaireComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private router: Router,
-              private questionnaireService: QuestionnaireService) { }
+              private questionnaireService: QuestionnaireService,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void { 
     let dialogRef = this.dialog.open(QuestionnaireCreatorComponent, {

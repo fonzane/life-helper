@@ -54,7 +54,7 @@
     <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
 </table> -->
 
-<div class="container">
+<div class="container">    
     <h2 class="text-center m-2">Fragebögen</h2>
     <mat-accordion class="align-headers">
         <mat-expansion-panel *ngFor="let questionnaire of questionnaires">
@@ -73,7 +73,7 @@
             </mat-expansion-panel-header>
             <div class="row mt-1" *ngFor="let question of questionnaire.questions; index as i">
                 <div class="col text-start py-1">
-                    Frage {{i+1}}:&nbsp;{{question.phrase}}
+                    Frage {{i+1}}:&nbsp;<input class="question-input" type="text" [(ngModel)]="question.phrase">
                 </div>
                 <div class="col text-start py-1 ps-0">
                     Format:&nbsp;<span *ngIf="question.open else closed">Offen</span><ng-template #closed>Geschlossen</ng-template>
@@ -83,7 +83,8 @@
                 <p class="text-start mb-1 mt-3 schedule-para">Ausfülltermine</p>
                 <span class="schedule-span" *ngFor="let scheduleObj of questionnaire.schedule">{{scheduleObj | objectPipe}}</span>
                 <!-- <div class="col-12 text-start">Zeitpunkte zum Ausfüllen:</div>
-                <div class="col text-start" *ngFor="let scheduleObj of questionnaire.schedule">{{scheduleObj | objectPipe}}</div> -->
+                    <div class="col text-start" *ngFor="let scheduleObj of questionnaire.schedule">{{scheduleObj | objectPipe}}</div> -->
+                <button mat-raised-button (click)="onEditQuestionnaire(questionnaire._id, questionnaire.questions)" style="background: blue; color: white">Speichern</button>
             </div>
         </mat-expansion-panel>
     </mat-accordion>

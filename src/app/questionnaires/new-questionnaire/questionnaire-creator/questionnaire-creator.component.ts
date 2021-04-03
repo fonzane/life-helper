@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { Question, Questionnaire, Schedule } from 'src/app/models/questionnaire';
 import { QuestionnaireService } from '../../../services/questionnaire.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-questionnaire-creator',
@@ -42,18 +43,21 @@ export class QuestionnaireCreatorComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private fb: FormBuilder,
               private auth: AuthService,
-              private questionnaireServie: QuestionnaireService) { }
+              private questionnaireServie: QuestionnaireService,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   async onAddQuestions(value: number, templateRef: TemplateRef<any>) {
+    console.log(this.questionnaireForm.get('name'));
     let count = 0;
     while (count < value) {
       this.dialogRef = this.dialog.open(templateRef, {
         width: "450px"
       });
       const response: Question = await this.dialogRef.afterClosed().toPromise();
+      console.log(response);
       this.questionsArray.push(response);
       count++;
     }

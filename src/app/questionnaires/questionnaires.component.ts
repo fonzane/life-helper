@@ -1,9 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Questionnaire } from '../models/questionnaire';
+import { Question, Questionnaire } from '../models/questionnaire';
 import { QuestionnaireService } from '../services/questionnaire.service';
 
 @Component({
@@ -25,7 +27,10 @@ export class QuestionnairesComponent implements OnInit {
   displayedColumns = ['Name', 'Erstellt'];
   expandedElement: Questionnaire | null;
 
-  constructor(private router: Router, private questionnaireService: QuestionnaireService, private snackBar: MatSnackBar) {
+  constructor(private router: Router,
+              private questionnaireService: QuestionnaireService,
+              private snackBar: MatSnackBar,
+              private fb: FormBuilder) {
     
   }
 
@@ -38,6 +43,11 @@ export class QuestionnairesComponent implements OnInit {
 
   originalOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
     return 0;
+  }
+
+  onEditQuestionnaire(questionnaireID: string, questions: Question[]) {
+    console.log(questionnaireID);
+    console.log(questions);
   }
 
   onDeleteQuestionnaire(id: string, event: Event) {
