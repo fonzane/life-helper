@@ -29,8 +29,7 @@ export class QuestionnairesComponent implements OnInit {
 
   constructor(private router: Router,
               private questionnaireService: QuestionnaireService,
-              private snackBar: MatSnackBar,
-              private fb: FormBuilder) {
+              private snackBar: MatSnackBar) {
     
   }
 
@@ -45,9 +44,16 @@ export class QuestionnairesComponent implements OnInit {
     return 0;
   }
 
-  onEditQuestionnaire(questionnaireID: string, questions: Question[]) {
-    console.log(questionnaireID);
-    console.log(questions);
+  onEditQuestionnaire(questionnaire: Questionnaire) {
+    questionnaire.lastModified = new Date().toISOString();
+    this.questionnaireService.editQuestionnaire(questionnaire).subscribe((resp: {message: string, success: boolean, questionnaire?: Questionnaire}) => {
+      if(resp.success) {
+        this.snackBar.open(resp.message, 'OK', {duration: 3000});
+        console.log(resp.questionnaire);
+      } else if (!resp.success) {
+        this.snackBar.open(resp.message, 'OK', {duration: 3000});
+      }
+    })
   }
 
   onDeleteQuestionnaire(id: string, event: Event) {

@@ -1,7 +1,7 @@
 export interface Questionnaire {
     name: string;
-    createdAt?: Date;
-    lastModified?: Date;
+    createdAt?: Date | string;
+    lastModified?: Date | string;
     questions: Array<Question>;
     userID: string;
     schedule: Schedule[];

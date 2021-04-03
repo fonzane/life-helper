@@ -14,12 +14,16 @@ export class QuestionnaireService {
 
   constructor(private http: HttpClient) { }
 
+  getQuestionnaires() {
+    return this.http.get(this.apiUrl + '/questionnaires');
+  }
+
   newQuestionnaire(questionnaire: Questionnaire) {
     return this.http.post(this.apiUrl + '/questionnaire', questionnaire);
   }
 
-  getQuestionnaires() {
-    return this.http.get(this.apiUrl + '/questionnaires');
+  editQuestionnaire(questionnaire: Questionnaire) {
+    return this.http.patch(this.apiUrl + '/questionnaire', questionnaire);
   }
 
   deleteQuestionnaire(id: string) {
