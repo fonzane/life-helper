@@ -41,9 +41,9 @@
     <div class="d-flex flex-column">
         <h3 class="text-center">Bitte gib eine Frage an</h3>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="Frage" #question>
+            <input matInput placeholder="Frage" #question (keyup)="closeQuestionDialog(question.value, open.checked, $event)">
             <mat-slide-toggle matSuffix matTooltip="Offenes Format" #open></mat-slide-toggle>
         </mat-form-field>
-        <button mat-raised-button (click)="closeQuestionDialog(question.value, open.checked)">OK</button>
+        <button mat-raised-button (click)="closeQuestionDialog(question.value, open.checked, $event)">OK</button>
     </div>
 </ng-template>

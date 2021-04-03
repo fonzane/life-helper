@@ -27,9 +27,9 @@ export class NewQuestionnaireComponent implements OnInit {
         dialogRef.close();
       }
     })
-    dialogRef.afterClosed().subscribe(resp => {
-      console.log(resp);
+    dialogRef.afterClosed().subscribe(() => {
       newQuestionnaireEvent.unsubscribe();
+      this.questionnaireService.newQuestionnaireEvent.next(null);
       console.log('new questionnaire dialog closed');
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/questionnaires']);

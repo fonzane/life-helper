@@ -6,6 +6,7 @@ import { Question, Questionnaire, Schedule } from 'src/app/models/questionnaire'
 import { QuestionnaireService } from '../../../services/questionnaire.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { scheduleValidator } from 'src/app/services/schedule-validator.directive';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-questionnaire-creator',
@@ -51,11 +52,7 @@ export class QuestionnaireCreatorComponent implements OnInit {
   }
 
   async onAddQuestions(value: number, templateRef: TemplateRef<any>) {
-    console.log(this.questionnaireForm);
-    return;
     if (!this.questionnaireForm.valid) {
-      console.log(this.questionnaireForm.get('name').value);
-      console.log(this.questionnaireForm.get('weekdays').value);
       this.matSnackBar.open('Bitte fülle zuerst alle Felder aus.', 'OK', {duration: 3000});
       return;
     }
@@ -94,8 +91,15 @@ export class QuestionnaireCreatorComponent implements OnInit {
     }
   }
 
-  closeQuestionDialog(phrase, open) {
-    const question: Question = {phrase: phrase, open: open};
-    this.dialogRef.close(question);
+  closeQuestionDialog(phrase, open, event) {
+    console.log();
+    if ((event.type === "keyup" && event.code === "Enter") || event.type === "click") {
+      if (phrase) {
+        const question: Question = {phrase: phrase, open: open};
+        this.dialogRef.close(question);
+      } else {
+        this.matSnackBar.open('Bitte gib eine Frage ein.', 'OK', {duration: 3000});
+      }
+    }
   }
 }
