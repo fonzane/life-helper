@@ -24,8 +24,9 @@ export class QuestionnairesComponent implements OnInit {
   linksArray: string[] = ['Fragebogen erstellen', 'Fragebögen editieren', "Fragebögen anzeigen"];
   links = { new: 'Fragebogen erstellen', edit: 'Fragebögen editieren', show: 'Fragebögen anzeigen' };
   questionnaires: Questionnaire[] = [];
-  displayedColumns = ['Name', 'Erstellt'];
-  expandedElement: Questionnaire | null;
+  expandedList: Array<boolean>;
+
+  isLoading: boolean = true;
 
   constructor(private router: Router,
               private questionnaireService: QuestionnaireService,
@@ -37,6 +38,8 @@ export class QuestionnairesComponent implements OnInit {
     this.questionnaireService.getQuestionnaires().subscribe((questionnaires: Questionnaire[]) => {
       this.questionnaires = questionnaires;
       console.log(this.questionnaires);
+      this.expandedList = new Array(this.questionnaires.length).fill(false);
+      this.isLoading = false;
     })
   }
 

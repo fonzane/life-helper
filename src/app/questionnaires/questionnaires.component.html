@@ -53,18 +53,22 @@
         (click)="expandedElement = expandedElement === element ? null : element"></tr>
     <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
 </table> -->
-
-<div class="container">    
+<mat-progress-spinner class="progress-spinner" *ngIf="isLoading" color="primary" mode="indeterminate" diameter="250"></mat-progress-spinner>
+<div class="container" *ngIf="!isLoading">    
     <h2 class="text-center m-2">Fragebögen</h2>
     <mat-accordion class="align-headers">
-        <mat-expansion-panel *ngFor="let questionnaire of questionnaires">
+        <mat-expansion-panel *ngFor="let questionnaire of questionnaires; let i = index"
+            (opened)="expandedList[i] = true"
+            (closed)="expandedList[i] = false">
             <mat-expansion-panel-header>
                 <div class="row flex-grow-1">
                     <div class="col text-start">
-                        {{questionnaire.name}}
+                        <span *ngIf="!expandedList[i]" [ngClass]="{'expansion-text-header': questionnaire.createdAt != questionnaire.lastModified}">{{questionnaire.name}}</span>
+                        <input type="text" [(ngModel)]="questionnaire.name" *ngIf="expandedList[i]">
                     </div>
                     <div class="col text-start">
-                        {{questionnaire.createdAt | date:"dd.MM.YYYY HH:mm"}}
+                        <span class="expansion-text-block">Erstellt am {{questionnaire.createdAt | date:"dd.MM.YYYY HH:mm"}}<br/>
+                        <span *ngIf="questionnaire.createdAt != questionnaire.lastModified">zuletzt verändert {{questionnaire.lastModified | date:"dd.MM.YYYY HH:mm"}}</span></span>
                     </div>
                     <div class="delete-icon-container" (click)="onDeleteQuestionnaire(questionnaire._id, $event)">
                         <mat-icon>delete</mat-icon>
@@ -81,11 +85,11 @@
             </div>
             <div class="row mt-1 schedule-row">
                 <p class="text-start mb-1 mt-3 schedule-para">Ausfülltermine</p>
-                <span class="schedule-span" *ngFor="let scheduleObj of questionnaire.schedule | scheduleFilter; let i = index">
+                <div class="col-lg-3 col-md-4 col-sm-6 schedule-col" *ngFor="let scheduleObj of questionnaire.schedule | scheduleFilter; let i = index">
                     {{scheduleObj.key}} um 
                     <input type="text" [ngxTimepicker]="picker" [(ngModel)]="questionnaire.schedule[i][scheduleObj.key]" [format]="24">
                     <ngx-material-timepicker #picker></ngx-material-timepicker>
-                </span>
+                </div>
                 
                 <!-- <div class="col-12 text-start">Zeitpunkte zum Ausfüllen:</div>
                     <div class="col text-start" *ngFor="let scheduleObj of questionnaire.schedule">{{scheduleObj | objectPipe}}</div> -->
